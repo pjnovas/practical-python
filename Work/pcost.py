@@ -2,17 +2,19 @@
 #
 # Exercise 1.27
 
+import sys
 import csv
 
 
 def portfolio_cost(filename):
     'Returns the total cost of the entire portfolio'
-    total = 0
 
     f = open(filename, 'rt')
     rows = csv.reader(f)
-    headers = next(rows)
 
+    next(rows)  # Read header
+
+    total = 0
     for row in rows:
         try:
             total += int(row[1]) * float(row[2])
@@ -24,7 +26,10 @@ def portfolio_cost(filename):
     return total
 
 
-# cost = portfolio_cost('Data/portfolio.csv')
-# cost = portfolio_cost('Data/missing.csv')
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/portfolio.csv'
 
-# print(f'Total cost {cost:0.2f}')
+cost = portfolio_cost(filename)
+print(f'Total cost {cost:0.2f}')
