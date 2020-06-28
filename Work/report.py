@@ -59,4 +59,5 @@ for title in headers:
 print()
 
 for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+    p = f'${price:>0.2f}'
+    print(f'{name:>10s} {shares:>10d} {p:>10s} {change:>10.2f}')
