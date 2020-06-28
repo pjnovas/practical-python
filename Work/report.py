@@ -51,19 +51,12 @@ portfolio = read_portfolio('Data/portfolio.csv')
 prices = read_prices('Data/prices.csv')
 report = make_report(portfolio, prices)
 
+headers = ('Name', 'Shares', 'Price', 'Change')
+print('%10s %10s %10s %10s' % headers)
+
+for title in headers:
+    print('-' * 10 + ' ', end='')
+print()
+
 for name, shares, price, change in report:
     print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
-
-# total_cost = 0.0
-# current_value = 0.0
-
-# for stock in portfolio:
-#     total_cost += stock['shares'] * stock['price']
-
-# for stock in portfolio:
-#     price = prices[stock['name']]
-#     current_value += stock['shares'] * price
-
-# print('Total cost', total_cost)
-# print('Current value', current_value)
-# print(f'Gain/Loss {current_value - total_cost:0.2f}')
