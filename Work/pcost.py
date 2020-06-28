@@ -15,11 +15,11 @@ def portfolio_cost(filename):
     next(rows)  # Read header
 
     total = 0
-    for row in rows:
+    for i, row in enumerate(rows, start=1):
         try:
             total += int(row[1]) * float(row[2])
         except ValueError:
-            print(f'missing value on line {row}')
+            print(f'Row {i}: Bad Row: {row}')
 
     f.close()
 
