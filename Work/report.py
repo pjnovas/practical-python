@@ -6,20 +6,16 @@ import csv
 
 
 def read_portfolio(filename):
-    portfolio = []
-
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
 
         header = next(rows)
         types = [str, int, float]
 
-        for row in rows:
-            holding = {name: func(val)
-                       for name, func, val in zip(header, types, row)}
-            portfolio.append(holding)
-
-    return portfolio
+        return [
+            {name: func(val) for name, func, val in zip(header, types, row)}
+            for row in rows
+        ]
 
 
 def read_prices(filename):
