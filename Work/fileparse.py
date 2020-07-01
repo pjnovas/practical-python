@@ -25,21 +25,25 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             headers = select
 
         records = []
-        for row in rows:
+        for index, row in enumerate(rows, start=1):
             if not row:    # Skip rows with no data
                 continue
 
-            if indices:
-                row = [row[i] for i in indices]
+            try:
+                if indices:
+                    row = [row[i] for i in indices]
 
-            if types:
-                row = [func(value) for func, value in zip(types, row)]
+                if types:
+                    row = [func(value) for func, value in zip(types, row)]
 
-            if has_headers:
-                record = dict(zip(headers, row))
-            else:
-                record = tuple(row)
+                if has_headers:
+                    record = dict(zip(headers, row))
+                else:
+                    record = tuple(row)
 
-            records.append(record)
+                records.append(record)
+            except ValueError as e:
+                print(f'Row {index}: Could not convert', row)
+                print(f'Row {index}: Reason', e)
 
     return records
