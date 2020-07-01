@@ -5,13 +5,13 @@
 import csv
 
 
-def parse_csv(filename, select=None, types=None, has_headers=True):
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','):
     '''
     Parse a CSV file into a list of records
     '''
     with open(filename) as f:
         indices = None
-        rows = csv.reader(f)
+        rows = csv.reader(f, delimiter=delimiter)
 
         if has_headers:
             headers = next(rows)
