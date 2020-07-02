@@ -2,33 +2,16 @@
 #
 # Exercise 2.4
 
-import csv
+from fileparse import parse_csv
 
 
 def read_portfolio(filename):
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-
-        header = next(rows)
-        types = [str, int, float]
-
-        return [
-            {name: func(val) for name, func, val in zip(header, types, row)}
-            for row in rows
-        ]
+    return parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
 
 def read_prices(filename):
-    prices = {}
-
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-
-        for row in rows:
-            if row:
-                prices[row[0]] = float(row[1])
-
-    return prices
+    pricelist = parse_csv(filename, types=[str, float], has_headers=False)
+    return dict(pricelist)
 
 
 def make_report(portfolio, prices):
