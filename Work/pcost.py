@@ -12,10 +12,17 @@ def portfolio_cost(filename):
     return sum([s['shares'] * s['price'] for s in portfolio])
 
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+# Main function
+def main(argv):
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+    else:
+        filename = 'Data/portfolio.csv'
 
-cost = portfolio_cost(filename)
-print(f'Total cost {cost:0.2f}')
+    cost = portfolio_cost(filename)
+    print(f'Total cost {cost:0.2f}')
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

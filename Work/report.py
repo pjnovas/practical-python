@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 # report.py
-#
-# Exercise 2.4
 
+# Import statements (libraries)
 from fileparse import parse_csv
 
 
+# Functions
 def read_portfolio(filename):
     return parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
@@ -42,4 +43,11 @@ def portfolio_report(portfolio_filename, prices_filename):
     print_report(report)
 
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+# Main function
+def main(argv):
+    portfolio_report(argv[1], argv[2])
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
