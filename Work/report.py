@@ -3,13 +3,16 @@
 
 # Import statements (libraries)
 from fileparse import parse_csv
+from stock import Stock
 
 # Functions
 
 
 def read_portfolio(filename):
     with open(filename, 'rt') as file:
-        return parse_csv(file, select=['name', 'shares', 'price'], types=[str, int, float])
+        portdicts = parse_csv(
+            file, select=['name', 'shares', 'price'], types=[str, int, float])
+        return [Stock(s['name'], s['shares'], s['price']) for s in portdicts]
 
 
 def read_prices(filename):
@@ -22,8 +25,8 @@ def make_report(portfolio, prices):
     report = []
 
     for s in portfolio:
-        row = (s['name'], s['shares'],
-               prices[s['name']], prices[s['name']] - s['price'])
+        row = (s.name, s.shares,
+               prices[s.name], prices[s.name] - s.price)
         report.append(row)
 
     return report
