@@ -1,5 +1,8 @@
 
 class Stock:
+    # no longer uses a dict and disallow to set new props on the fly
+    __slots__ = ('name', '_shares', 'price')
+
     def __init__(self, name, shares, price):
         self.name = name
         self.shares = shares
