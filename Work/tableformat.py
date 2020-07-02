@@ -75,3 +75,11 @@ def create_formatter(name):
         raise RuntimeError(f'Unknown format {name}')
 
     return formatter
+
+
+def print_table(data, fields, formatter):
+    formatter.headings(fields)
+
+    for item in data:
+        rowdata = [str(getattr(item, name)) for name in fields]
+        formatter.row(rowdata)
