@@ -4,15 +4,18 @@
 # Import statements (libraries)
 from fileparse import parse_csv
 
-
 # Functions
+
+
 def read_portfolio(filename):
-    return parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
+    with open(filename, 'rt') as file:
+        return parse_csv(file, select=['name', 'shares', 'price'], types=[str, int, float])
 
 
 def read_prices(filename):
-    pricelist = parse_csv(filename, types=[str, float], has_headers=False)
-    return dict(pricelist)
+    with open(filename, 'rt') as file:
+        pricelist = parse_csv(file, types=[str, float], has_headers=False)
+        return dict(pricelist)
 
 
 def make_report(portfolio, prices):
