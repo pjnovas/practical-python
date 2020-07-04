@@ -6,25 +6,16 @@ import report
 import tableformat
 
 
-def filter_symbols(rows, names):
-    for row in rows:
-        if row['name'] in names:
-            yield row
-
-
 def convert_types(rows, types):
-    for row in rows:
-        yield [func(val) for func, val in zip(types, row)]
+    return ([func(val) for func, val in zip(types, row)] for row in rows)
 
 
 def make_dicts(rows, headers):
-    for row in rows:
-        yield dict(zip(headers, row))
+    return (dict(zip(headers, row)) for row in rows)
 
 
 def select_columns(rows, indices):
-    for row in rows:
-        yield [row[index] for index in indices]
+    return ([row[index] for index in indices] for row in rows)
 
 
 def parse_stock_data(lines):
@@ -41,17 +32,13 @@ def ticker(portfile, logfile, fmt):
 
     portfolio = report.read_portfolio('Data/portfolio.csv')
     rows = parse_stock_data(follow('Data/stocklog.csv'))
-    rows = filter_symbols(rows, portfolio)
 
-    for row in rows:
+    holdings = (row for row in rows if row['name'] in portfolio)
+
+    for stock in holdings:
         formatter.row(
-            [row['name'], f"{row['price']:0.2f}", f"{row['change']:0.2f}"])
+            [stock['name'], f"{stock['price']:0.2f}", f"{stock['change']:0.2f}"])
 
 
 if __name__ == '__main__':
-    import report
-    portfolio = report.read_portfolio('Data/portfolio.csv')
-    rows = parse_stock_data(follow('Data/stocklog.csv'))
-    rows = filter_symbols(rows, portfolio)
-    for row in rows:
-        print(row)
+    ticker('Data/portfolio.csv', 'Data/stocklog.csv', 'txt')
