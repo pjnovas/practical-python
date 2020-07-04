@@ -9,7 +9,7 @@ from report import read_portfolio
 def portfolio_cost(filename):
     'Returns the total cost of the entire portfolio'
     portfolio = read_portfolio(filename)
-    return sum([s.cost for s in portfolio])
+    return portfolio.total_cost
 
 
 # Main function
