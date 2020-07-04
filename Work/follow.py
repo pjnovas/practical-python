@@ -5,7 +5,7 @@ import time
 
 
 def follow(filename):
-    f = open('Data/stocklog.csv')
+    f = open(filename)
     f.seek(0, os.SEEK_END)
 
     while True:
